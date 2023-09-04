@@ -1,0 +1,40 @@
+//
+// _form-control.scss
+//
+
+.form-icon {
+    position: relative;
+
+    .form-control-icon {
+        padding-left: $input-padding-x*3;
+        position: relative;
+    }
+
+    i {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 18px;
+        display: flex;
+        align-items: center;
+    }
+
+    &.right {
+        .form-control-icon {
+            padding-right: $input-padding-x*3;
+            padding-left: $input-padding-x;
+            position: relative;
+        }
+
+        i {
+            left: auto;
+            right: 18px;
+        }
+    }
+}
+
+.form-control-color{
+    width: 3rem;
+    height: calc(1.5em + 1.05rem + calc(var(--tb-border-width) * 2));
+    padding: 0.525rem;
+}

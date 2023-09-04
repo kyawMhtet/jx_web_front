@@ -1,0 +1,1271 @@
+<script>
+import Layout from "../../layouts/main.vue";
+import PageHeader from "../../components/page-header.vue";
+
+import "prismjs";
+
+export default {
+    data() {
+        return {
+            title: "Accordions",
+            items: [
+                {
+                    text: "Base UI",
+                    href: "/",
+                },
+                {
+                    text: "Accordions",
+                    active: true,
+                },
+            ],
+            collapseState: false,
+            collapseHori: false,
+            iconCol: false,
+            multiCol1: false,
+            multiCol2: false,
+        };
+    },
+    methods: {
+        multiCollapse() {
+            this.multiCol1 = !this.multiCol1
+            this.multiCol2 = !this.multiCol2
+        }
+    },
+    components: {
+        Layout,
+        PageHeader,
+    },
+};
+</script>
+
+<template>
+    <Layout>
+        <PageHeader :title="title" :items="items" />
+
+        <b-row>
+            <b-col xxl="6">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Default Accordion</b-card-title>
+                    </b-card-header><!-- end card header -->
+
+                    <b-card-body>
+                        <p class="text-muted">Use the <code>accordion</code> class to expand/collapse the accordion content.
+                        </p>
+                        <b-accordion>
+                            <b-accordion-item title="How to create a group booking ?" visible>
+                                Although you probably won’t get into any legal trouble if you
+                                do it just once, why risk it? If you made your subscribers a
+                                promise, you should honor that. If not, you run the risk of a
+                                drastic increase in opt outs, which will only hurt you in the
+                                long run.
+                            </b-accordion-item>
+                            <b-accordion-item title="Why do we use it ?">
+                                No charges are put in place by SlickText when subscribers join
+                                your text list. This does not mean however that charges 100%
+                                will not occur. Charges that may occur fall under part of the
+                                compliance statement stating "Message and Data rates may
+                                apply."
+                            </b-accordion-item>
+                            <b-accordion-item title="Where does it come from ?">
+                                Now that you have a general idea of the amount of texts you
+                                will need per month, simply find a plan size that allows you
+                                to have this allotment, plus some extra for growth. Don't
+                                worry, there are no mistakes to be made here. You can always
+                                upgrade and downgrade.
+                            </b-accordion-item>
+                        </b-accordion>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 330px;"><code>&lt;!-- Base Example --&gt;
+&lt;div class=&quot;accordion&quot; id=&quot;default-accordion-example&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;headingOne&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseOne&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;collapseOne&quot;&gt;
+    How to create a group booking ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;collapseOne&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;headingOne&quot; data-bs-parent=&quot;#default-accordion-example&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+Although you probably won’t get into any legal trouble if you do it just once, why risk it? If you made your subscribers a promise, you should honor that. If not, you run the risk of a drastic increase in opt outs, which will only hurt you in the long run.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;headingTwo&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseTwo&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;collapseTwo&quot;&gt;
+    Why do we use it ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;collapseTwo&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;headingTwo&quot; data-bs-parent=&quot;#default-accordion-example&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+No charges are put in place by SlickText when subscribers join your text list. This does not mean however that charges 100% will not occur. Charges that may occur fall under part of the compliance statement stating "Message and Data rates may apply."
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;headingThree&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseThree&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;collapseThree&quot;&gt;
+    Where does it come from ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;collapseThree&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;headingThree&quot; data-bs-parent=&quot;#default-accordion-example&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+Now that you have a general idea of the amount of texts you will need per month, simply find a plan size that allows you to have this allotment, plus some extra for growth. Don't worry, there are no mistakes to be made here. You can always upgrade and downgrade.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+
+            <b-col xxl="6">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class=" mb-0">Accordion Flush </b-card-title >
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">Use <code>accordion-flush</code> class to remove the default background-color,
+                            some borders, and some rounded corners to render accordions edge-to-edge with their parent
+                            container.</p>
+                        <b-accordion flush id="accordionFlushExample">
+                            <b-accordion-item title="How do I set up my profile ?" visible>
+                                The renewal of your SlickText service happens on the
+                                anniversary of your original paid sign up date. Upgrading in
+                                the middle of your billing period will not change the billing
+                                date. Upgrading does however force an immediate, pro-rated
+                                charge to take place on your account.
+                            </b-accordion-item>
+                            <b-accordion-item title="What can I do with my project ?">
+                                If you had signed up on a free account with Slicktext, then
+                                upgraded to a paid plan at a later date, your bill will renew
+                                based on the date you had upgraded to a paid plan. All
+                                invoices are able to be viewed under your plan options in your
+                                SlickText account.
+                            </b-accordion-item>
+                            <b-accordion-item title="Where can I go to edit voice settings">
+                                No, we cannot provide this information. Opting out from a list
+                                is an anonymous, private act. This prevents further
+                                harassment. Providing this information is considered bad
+                                practice, and further communication after they opt out would
+                                be considered against compliance.
+                            </b-accordion-item>
+                        </b-accordion>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 310px;"><code>&lt;!-- Accordion Flush Example --&gt;
+&lt;div class=&quot;accordion accordion-flush&quot; id=&quot;accordionFlushExample&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;flush-headingOne&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot;
+    data-bs-target=&quot;#flush-collapseOne&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flush-collapseOne&quot;&gt;
+    How do I set up my profile ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;flush-collapseOne&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;flush-headingOne&quot;
+data-bs-parent=&quot;#accordionFlushExample&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;The renewal of your SlickText service happens on the anniversary of your original paid sign up date. Upgrading in the middle of your billing period will not change the billing date. Upgrading does however force an immediate, pro-rated charge to take place on your account.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;flush-headingTwo&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot;
+    data-bs-target=&quot;#flush-collapseTwo&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flush-collapseTwo&quot;&gt;
+    What can I do with my project ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;flush-collapseTwo&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;flush-headingTwo&quot;
+data-bs-parent=&quot;#accordionFlushExample&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;If you had signed up on a free account with Slicktext, then upgraded to a paid plan at a later date, your bill will renew based on the date you had upgraded to a paid plan. All invoices are able to be viewed under your plan options in your SlickText account.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;flush-headingThree&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot;
+    data-bs-target=&quot;#flush-collapseThree&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flush-collapseThree&quot;&gt;
+    Where can I go to edit voice settings
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;flush-collapseThree&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;flush-headingThree&quot;
+data-bs-parent=&quot;#accordionFlushExample&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;No, we cannot provide this information. Opting out from a list is an anonymous, private act. This prevents further harassment. Providing this information is considered bad practice, and further communication after they opt out would be considered against compliance.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+        </b-row>
+        <!--end row-->
+
+        <b-row>
+            <b-col xxl="6">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Accordions with Icons</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">Use <code>custom-accordionwithicon</code> class to show custom icon at
+                            accordion.</p>
+                        <div class="accordion custom-accordionwithicon accordion-secondary" id="accordionWithicon">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accordionwithiconExample1">
+                                    <b-button variant="white" class="accordion-button" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#accor_iconExamplecollapse1"
+                                        aria-expanded="true" aria-controls="accor_iconExamplecollapse1">
+                                        <i class="ri-global-line me-2"></i> How Does Age Verification Work?
+                                    </b-button>
+                                </h2>
+                                <div id="accor_iconExamplecollapse1" class="accordion-collapse collapse show"
+                                    aria-labelledby="accordionwithiconExample1" data-bs-parent="#accordionWithicon">
+                                    <div class="accordion-body">
+                                        Increase or decrease the letter spacing depending on the situation and try, try
+                                        again until it looks right, and each assumenda labore aes Homo nostrud organic,
+                                        assumenda labore aesthetic magna elements, buttons, everything.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accordionwithiconExample2">
+                                    <b-button variant="white" class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#accor_iconExamplecollapse2"
+                                        aria-expanded="false" aria-controls="accor_iconExamplecollapse2">
+                                        <i class="ri-user-location-line me-2"></i> How Does Link Tracking Work?
+                                    </b-button>
+                                </h2>
+                                <div id="accor_iconExamplecollapse2" class="accordion-collapse collapse"
+                                    aria-labelledby="accordionwithiconExample2" data-bs-parent="#accordionWithicon">
+                                    <div class="accordion-body">
+                                        Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed
+                                        fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo
+                                        eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero.
+                                        Fusce vulputate eleifend sapien.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accordionwithiconExample3">
+                                    <b-button variant="white" class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#accor_iconExamplecollapse3"
+                                        aria-expanded="false" aria-controls="accor_iconExamplecollapse3">
+                                        <i class="ri-pen-nib-line me-2"></i> How Do I Set Up the Drip Feature?
+                                    </b-button>
+                                </h2>
+                                <div id="accor_iconExamplecollapse3" class="accordion-collapse collapse"
+                                    aria-labelledby="accordionwithiconExample3" data-bs-parent="#accordionWithicon">
+                                    <div class="accordion-body">
+                                        Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in
+                                        faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi
+                                        consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 330px;"><code>&lt;!-- Accordions with Icons --&gt;
+&lt;div class=&quot;accordion custom-accordionwithicon&quot; id=&quot;accordionWithicon&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithiconExample1&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_iconExamplecollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_iconExamplecollapse1&quot;&gt;
+    &lt;i class=&quot;ri-global-line&quot;&gt;&lt;/i&gt; How Does Age Verification Work?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_iconExamplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionwithiconExample1&quot; data-bs-parent=&quot;#accordionWithicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+Increase or decrease the letter spacing depending on the situation and try, try again until it looks right, and each assumenda labore aes Homo nostrud organic, assumenda labore aesthetic magna elements, buttons, everything.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithiconExample2&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_iconExamplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_iconExamplecollapse2&quot;&gt;
+    &lt;i class=&quot;ri-user-location-line&quot;&gt;&lt;/i&gt; How Does Link Tracking Work?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_iconExamplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionwithiconExample2&quot; data-bs-parent=&quot;#accordionWithicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithiconExample3&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_iconExamplecollapse3&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_iconExamplecollapse3&quot;&gt;
+    &lt;i class=&quot;ri-pen-nib-line&quot;&gt;&lt;/i&gt; How Do I Set Up the Drip Feature?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_iconExamplecollapse3&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionwithiconExample3&quot; data-bs-parent=&quot;#accordionWithicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+
+            <b-col xxl="6">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Accordions without Icons</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">Use <code>accordion-icon-none</code> class to remove icon at accordion.</p>
+                        <div class="accordion accordion-icon-none" id="accordionWithouticon">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accordionwithouticonExample1">
+                                    <b-button variant="white" class="accordion-button" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#accor_withouticoncollapse1"
+                                        aria-expanded="true" aria-controls="accor_withouticoncollapse1">
+                                        <i class="ri-global-line me-2"></i> How Does Age Verification Work?
+                                    </b-button>
+                                </h2>
+                                <div id="accor_withouticoncollapse1" class="accordion-collapse collapse show"
+                                    aria-labelledby="accordionwithouticonExample1" data-bs-parent="#accordionWithouticon">
+                                    <div class="accordion-body">
+                                        Each design is a new, unique piece of art birthed into this world, and while you
+                                        have the opportunity to be creative and make your own style choices. For that very
+                                        reason, I went on a quest and spoke to many different professional graphic
+                                        designers.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accordionwithouticonExample2">
+                                    <b-button variant="white" class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#accor_withouticoncollapse2"
+                                        aria-expanded="false" aria-controls="accor_withouticoncollapse2">
+                                        <i class="ri-user-location-line me-2"></i> How Does Link Tracking Work?
+                                    </b-button>
+                                </h2>
+                                <div id="accor_withouticoncollapse2" class="accordion-collapse collapse"
+                                    aria-labelledby="accordionwithouticonExample2" data-bs-parent="#accordionWithouticon">
+                                    <div class="accordion-body">
+                                        When, while the lovely valley teems with vapour around me, and the meridian sun
+                                        strikes the upper surface of the impenetrable foliage of my trees, and but a few
+                                        stray gleams steal into the inner sanctuary, I throw myself down among the tall
+                                        grass by the trickling stream; and, as I lie close to the earth, a thousand unknown.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accordionwithouticonExample3">
+                                    <b-button variant="white" class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#accor_withouticoncollapse3"
+                                        aria-expanded="false" aria-controls="accor_withouticoncollapse3">
+                                        <i class="ri-pen-nib-line me-2"></i> How Do I Set Up the Drip Feature?
+                                    </b-button>
+                                </h2>
+                                <div id="accor_withouticoncollapse3" class="accordion-collapse collapse"
+                                    aria-labelledby="accordionwithouticonExample3" data-bs-parent="#accordionWithouticon">
+                                    <div class="accordion-body">
+                                        Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in
+                                        faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi
+                                        consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget,
+                                        imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 310px;"><code>&lt;!-- Accordions with Icons --&gt;
+&lt;div class=&quot;accordion custom-accordionwithicon&quot; id=&quot;accordionWithicon&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithiconExample1&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_withouticoncollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_iconExamplecollapse1&quot;&gt;
+    &lt;i class=&quot;ri-global-line&quot;&gt;&lt;/i&gt; How Does Age Verification Work?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_iconExamplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionwithiconExample1&quot; data-bs-parent=&quot;#accordionWithicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua nulla assumenda shoreditch et.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithiconExample2&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_iconExamplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_iconExamplecollapse2&quot;&gt;
+    &lt;i class=&quot;ri-user-location-line&quot;&gt;&lt;/i&gt; How Does Link Tracking Work?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_iconExamplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionwithiconExample2&quot; data-bs-parent=&quot;#accordionWithicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithiconExample3&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_iconExamplecollapse3&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_iconExamplecollapse3&quot;&gt;
+    &lt;i class=&quot;ri-pen-nib-line&quot;&gt;&lt;/i&gt; How Do I Set Up the Drip Feature?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_iconExamplecollapse3&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionwithiconExample3&quot; data-bs-parent=&quot;#accordionWithicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+
+            <b-col xl="12">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Accordions with Plus Icon</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">Use <code>custom-accordionwithicon-plus</code> class to show plus icon at the
+                            accordion.</p>
+                        <b-accordion class="custom-accordionwithicon-plus" id="accordionWithplusicon">
+                            <b-accordion-item title="What is User Interface Design?" visible>
+                                Big July earthquakes confound zany experimental vow. My
+                                girl wove six dozen plaid jackets before she quit. Six big
+                                devils from Japan quickly forgot how to waltz. try again
+                                until it looks right, and each assumenda labore aes Homo
+                                nostrud organic, assumenda labore aesthetic magna
+                                elements, buttons, everything.
+                            </b-accordion-item>
+                            <b-accordion-item title="What is Digital Marketing?">
+                                It makes a statement, it’s impressive graphic design.
+                                Increase or decrease the letter spacing depending on the
+                                situation and try, try again until it looks right, and
+                                each letter has the perfect spot of its own. commodo enim
+                                craft beer mlkshk aliquip jean shorts ullamco.
+                            </b-accordion-item>
+                            <b-accordion-item title="Where does it come from ?">
+                                Spacing depending on the situation and try, try again
+                                until it looks right, and each. next level wes anderson
+                                artisan four loko farm-to-table craft beer twee. commodo
+                                enim craft beer mlkshk aliquip jean shorts ullamco. omo
+                                nostrud organic, assumenda labore aesthetic magna
+                                delectus. pposites attract, and that’s a fact.
+                            </b-accordion-item>
+                        </b-accordion>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 310px;"><code>&lt;!-- Accordions with Plus Icon --&gt;
+&lt;div class=&quot;accordion custom-accordionwithicon-plus&quot; id=&quot;accordionWithplusicon&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithplusExample1&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_plusExamplecollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_plusExamplecollapse1&quot;&gt;
+    What is User Interface Design?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_plusExamplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionwithplusExample1&quot; data-bs-parent=&quot;#accordionWithplusicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+Big July earthquakes confound zany experimental vow. My girl wove six dozen plaid jackets before she quit. Six big devils from Japan quickly forgot how to waltz. try again until it looks right, and each assumenda labore aes Homo nostrud organic, assumenda labore aesthetic magna elements, buttons, everything.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithplusExample2&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_plusExamplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_plusExamplecollapse2&quot;&gt;
+    What is Digital Marketing?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_plusExamplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionwithplusExample2&quot; data-bs-parent=&quot;#accordionWithplusicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+It makes a statement, it’s impressive graphic design. Increase or decrease the letter spacing depending on the situation and try, try again until it looks right, and each letter has the perfect spot of its own. commodo enim craft beer mlkshk aliquip jean shorts ullamco.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionwithplusExample3&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_plusExamplecollapse3&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_plusExamplecollapse3&quot;&gt;
+    Where does it come from ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_plusExamplecollapse3&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionwithplusExample3&quot; data-bs-parent=&quot;#accordionWithplusicon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+Spacing depending on the situation and try, try again until it looks right, and each. next level wes anderson artisan four loko farm-to-table craft beer twee. commodo enim craft beer mlkshk aliquip jean shorts ullamco. omo nostrud organic, assumenda labore aesthetic magna delectus. pposites attract, and that’s a fact.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+        </b-row>
+        <!--end row-->
+
+        <b-row>
+            <b-col xxl="6">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Left Icon Accordions</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">Use <code>lefticon-accordion</code> class to show the icon on the left side of
+                            the accordion.</p>
+                        <b-accordion class=" lefticon-accordion custom-accordionwithicon accordion-border-box"
+                            id="accordionlefticon">
+                            <b-accordion-item title="What is User Interface Design?" visible>
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                accusamus terry richardson ad squid. 3 wolf moon officia
+                                aute, non cupidatat skateboard dolor brunch. Food truck
+                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                tempor, sunt aliqua nulla assumenda shoreditch et.
+                            </b-accordion-item>
+                            <b-accordion-item title="What is Digital Marketing?">
+                                Nullam quis ante. Etiam sit amet orci eget eros faucibus
+                                tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
+                                Donec sodales sagittis magna. Sed consequat, leo eget
+                                bibendum sodales, augue velit cursus nunc, quis gravida
+                                magna mi a libero. Fusce vulputate eleifend sapien.
+                            </b-accordion-item>
+                            <b-accordion-item title="Where does it come from ?">
+                                Cras ultricies mi eu turpis hendrerit fringilla.
+                                Vestibulum ante ipsum primis in faucibus orci luctus et
+                                ultrices posuere cubilia Curae; In ac dui quis mi
+                                consectetuer lacinia. Nam pretium turpis et arcu arcu
+                                tortor, suscipit eget, imperdiet nec, imperdiet iaculis
+                                aliquam ultrices mauris.
+                            </b-accordion-item>
+                        </b-accordion>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 310px;"><code>&lt;!-- Left Icon Accordions --&gt;
+&lt;div class=&quot;accordion lefticon-accordion custom-accordionwithicon accordion-border-box&quot; id=&quot;accordionlefticon&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionlefticonExample1&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_lefticonExamplecollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_lefticonExamplecollapse1&quot;&gt;
+    What is User Interface Design?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_lefticonExamplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionlefticonExample1&quot; data-bs-parent=&quot;#accordionlefticon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua nulla assumenda shoreditch et.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item mt-2&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionlefticonExample2&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_lefticonExamplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_lefticonExamplecollapse2&quot;&gt;
+    What is Digital Marketing?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_lefticonExamplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionlefticonExample2&quot; data-bs-parent=&quot;#accordionlefticon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item mt-2&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionlefticonExample3&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_lefticonExamplecollapse3&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_lefticonExamplecollapse3&quot;&gt;
+    Where does it come from ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_lefticonExamplecollapse3&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionlefticonExample3&quot; data-bs-parent=&quot;#accordionlefticon&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+
+            <b-col xxl="6">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Accordions Bordered</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">Use <code>custom-accordion-border</code> class to create the border at the
+                            accordion.</p>
+                        <b-accordion
+                            class=" custom-accordionwithicon custom-accordion-border accordion-border-box accordion-success"
+                            id="accordionBordered">
+                            <b-accordion-item title="What is User Interface Design?" visible>
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                accusamus terry richardson ad squid. 3 wolf moon officia
+                                aute, non cupidatat skateboard dolor brunch. Food truck
+                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                tempor, sunt aliqua nulla assumenda shoreditch et.
+                            </b-accordion-item>
+                            <b-accordion-item title="What is Digital Marketing?">
+                                Nullam quis ante. Etiam sit amet orci eget eros faucibus
+                                tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
+                                Donec sodales sagittis magna. Sed consequat, leo eget
+                                bibendum sodales, augue velit cursus nunc, quis gravida
+                                magna mi a libero. Fusce vulputate eleifend sapien.
+                            </b-accordion-item>
+                            <b-accordion-item title="Where does it come from ?">
+                                Cras ultricies mi eu turpis hendrerit fringilla.
+                                Vestibulum ante ipsum primis in faucibus orci luctus et
+                                ultrices posuere cubilia Curae; In ac dui quis mi
+                                consectetuer lacinia. Nam pretium turpis et arcu arcu
+                                tortor, suscipit eget, imperdiet nec, imperdiet iaculis
+                                aliquam ultrices mauris.
+                            </b-accordion-item>
+                        </b-accordion>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 310px;"><code>&lt;!-- Accordions Bordered --&gt;
+&lt;div class=&quot;accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary&quot; id=&quot;accordionBordered&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionborderedExample1&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_borderedExamplecollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_borderedExamplecollapse1&quot;&gt;
+    What is User Interface Design?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_borderedExamplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionborderedExample1&quot; data-bs-parent=&quot;#accordionBordered&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua nulla assumenda shoreditch et.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item mt-2&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionborderedExample2&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_borderedExamplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_borderedExamplecollapse2&quot;&gt;
+    What is Digital Marketing?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_borderedExamplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionborderedExample2&quot; data-bs-parent=&quot;#accordionBordered&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item mt-2&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionborderedExample3&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_borderedExamplecollapse3&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_borderedExamplecollapse3&quot;&gt;
+    Where does it come from ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_borderedExamplecollapse3&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionborderedExample3&quot; data-bs-parent=&quot;#accordionBordered&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+        </b-row>
+        <!--end row-->
+
+        <b-row>
+            <b-col xl="12">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Nesting Accordions</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">Use <code>nesting-accordion</code> class to create a nesting accordion.</p>
+                        <b-accordion class="custom-accordionwithicon accordion-border-box" id="accordionnesting">
+                            <b-accordion-item title="How Do I Add Contacts/Subscribers?" visible>
+                                This opt in method is perfect for those looking to
+                                integrate a different software such Shopify or Hubspot
+                                with Slicktext. For example, upon cashing out online, a
+                                subscriber may submit to have their mobile number to
+                                receive marketing messages. The API will pass this
+                                information from said software over to Slicktext via API
+                                integration.
+                                <b-accordion class="
+                                      nesting2-accordion
+                                      custom-accordionwithicon
+                                      accordion-border-box
+                                      mt-3
+                                    " id="accordionnesting2">
+                                    <b-accordion-item title="How Do I Search For Contacts?" visible>
+                                        When you are in need of finding a specific
+                                        subscriber, you will want to use the help of
+                                        SlickText's search navigation tool, located under
+                                        the Contacts tab of your Slicktext account. Once
+                                        here, you will have options to sort by, filter,
+                                        and search your contacts.
+                                        <b-accordion class="
+                                              nesting4-accordion
+                                              custom-accordionwithicon
+                                              accordion-border-box
+                                              mt-3
+                                            " id="accordionnesting4">
+                                            <b-accordion-item title="How do I reset my digital tide watch ?">
+                                                Opting out a subscriber will allow
+                                                SlickText to maintain the history of the
+                                                subscriber as it pertains to the textword
+                                                you are opting them out of. If this user
+                                                was to text to join again, the initial
+                                                text they are met with will be a "welcome
+                                                back" message instead of the auto reply.
+                                            </b-accordion-item>
+                                        </b-accordion>
+                                    </b-accordion-item>
+                                    <b-accordion-item title="How Do I Delete a Contact From My List?">
+                                        Opting out a subscriber will allow SlickText to
+                                        maintain the history of the subscriber as it
+                                        pertains to the textword you are opting them out
+                                        of. If this user was to text to join again, the
+                                        initial text they are met with will be a "welcome
+                                        back" message instead of the auto reply.
+                                    </b-accordion-item>
+                                </b-accordion>
+                            </b-accordion-item>
+                            <b-accordion-item title="How Does Personalization Work?">
+
+                                Personalization allows you to provide a personal touch to
+                                your outbound text marketing campaigns. SlickText uses
+                                merge tags as placeholders that are replaced with
+                                contact-specific information when a text message is sent.
+                                These merge tags may also be known as personalization
+                                fields.
+                                <div class="
+                                      accordion
+                                      nesting3-accordion
+                                      custom-accordionwithicon
+                                      accordion-border-box
+                                      mt-3
+                                    " id="accordionnesting3">
+                                    <div class="accordion-item mt-2">
+                                        <h2 class="accordion-header" id="accordionnesting3Example2">
+                                            <b-button variant="link" class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#accor_nesting3Examplecollapse2"
+                                                aria-expanded="false" aria-controls="accor_nesting3Examplecollapse2">
+                                                Howe does temperature impact my watch?
+                                            </b-button>
+                                        </h2>
+                                        <div id="accor_nesting3Examplecollapse2" class="accordion-collapse collapse"
+                                            aria-labelledby="accordionnesting3Example2" data-bs-parent="#accordionnesting3">
+                                            <div class="accordion-body">
+                                                Opting out a subscriber will allow SlickText to
+                                                maintain the history of the subscriber as it
+                                                pertains to the textword you are opting them out
+                                                of. If this user was to text to join again, the
+                                                initial text they are met with will be a "welcome
+                                                back" message instead of the auto reply.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </b-accordion-item>
+                            <b-accordion-item title="What Happens When I Run Out of Messages?">
+                                When you run out of messages, you will not be able to send
+                                any outbound campaigns. This would include any scheduled
+                                messages, drip campaigns, and birthday messages. However,
+                                we will continue to deliver your auto-reply messages to
+                                allow your subscriber list to continue to grow.
+                            </b-accordion-item>
+                        </b-accordion>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 310px;"><code>&lt;!-- Nesting Accordions --&gt;
+&lt;div class=&quot;accordion nesting-accordion custom-accordionwithicon accordion-border-box&quot; id=&quot;accordionnesting&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnestingExample1&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nestingExamplecollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_nestingExamplecollapse1&quot;&gt;
+    How Do I Add Contacts/Subscribers?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nestingExamplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionnestingExample1&quot; data-bs-parent=&quot;#accordionnesting&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    This opt in method is perfect for those looking to integrate a different software such Shopify or Hubspot with Slicktext. For example, upon cashing out online, a subscriber may submit to have their mobile number to receive marketing messages. The API will pass this information from said software over to Slicktext via API integration.
+    &lt;div class=&quot;accordion nesting2-accordion custom-accordionwithicon accordion-border-box mt-3&quot; id=&quot;accordionnesting2&quot;&gt;
+        &lt;div class=&quot;accordion-item&quot;&gt;
+            &lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnesting2Example1&quot;&gt;
+                &lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nesting2Examplecollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_nesting2Examplecollapse1&quot;&gt;
+                    How Do I Search For Contacts?
+                &lt;/button&gt;
+            &lt;/h2&gt;
+            &lt;div id=&quot;accor_nesting2Examplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionnesting2Example1&quot; data-bs-parent=&quot;#accordionnesting2&quot;&gt;
+                &lt;div class=&quot;accordion-body&quot;&gt;
+                    When you are in need of finding a specific subscriber, you will want to use the help of SlickText's search navigation tool, located under the Contacts tab of your Slicktext account. Once here, you will have options to sort by, filter, and search your contacts.
+                    &lt;div class=&quot;accordion nesting4-accordion custom-accordionwithicon accordion-border-box mt-3&quot; id=&quot;accordionnesting4&quot;&gt;
+                        &lt;div class=&quot;accordion-item&quot;&gt;
+                            &lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnesting4Example2&quot;&gt;
+                                &lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nesting4Examplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nesting4Examplecollapse2&quot;&gt;
+                                    How do I reset my digital tide watch ?
+                                &lt;/button&gt;
+                            &lt;/h2&gt;
+                            &lt;div id=&quot;accor_nesting4Examplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnesting4Example2&quot; data-bs-parent=&quot;#accordionnesting4&quot;&gt;
+                                &lt;div class=&quot;accordion-body&quot;&gt;
+                                    Opting out a subscriber will allow SlickText to maintain the history of the subscriber as it pertains to the textword you are opting them out of. If this user was to text to join again, the initial text they are met with will be a &quot;welcome back&quot; message instead of the auto reply.
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;accordion-item&quot;&gt;
+            &lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnesting2Example2&quot;&gt;
+                &lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nesting2Examplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nesting2Examplecollapse2&quot;&gt;
+                    How Do I Delete a Contact From My List?
+                &lt;/button&gt;
+            &lt;/h2&gt;
+            &lt;div id=&quot;accor_nesting2Examplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnesting2Example2&quot; data-bs-parent=&quot;#accordionnesting2&quot;&gt;
+                &lt;div class=&quot;accordion-body&quot;&gt;
+                    Opting out a subscriber will allow SlickText to maintain the history of the subscriber as it pertains to the textword you are opting them out of. If this user was to text to join again, the initial text they are met with will be a &quot;welcome back&quot; message instead of the auto reply.
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnestingExample2&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nestingExamplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nestingExamplecollapse2&quot;&gt;
+    How Does Personalization Work?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nestingExamplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnestingExample2&quot; data-bs-parent=&quot;#accordionnesting&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Personalization allows you to provide a personal touch to your outbound text marketing campaigns. SlickText uses merge tags as placeholders that are replaced with contact-specific information when a text message is sent. These merge tags may also be known as personalization fields.
+    &lt;div class=&quot;accordion nesting3-accordion custom-accordionwithicon accordion-border-box mt-3&quot; id=&quot;accordionnesting3&quot;&gt;
+        &lt;div class=&quot;accordion-item mt-2&quot;&gt;
+            &lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnesting3Example2&quot;&gt;
+                &lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nesting3Examplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nesting3Examplecollapse2&quot;&gt;
+                    Howe does temperature impact my watch?
+                &lt;/button&gt;
+            &lt;/h2&gt;
+            &lt;div id=&quot;accor_nesting3Examplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnesting3Example2&quot; data-bs-parent=&quot;#accordionnesting3&quot;&gt;
+                &lt;div class=&quot;accordion-body&quot;&gt;
+                    Opting out a subscriber will allow SlickText to maintain the history of the subscriber as it pertains to the textword you are opting them out of. If this user was to text to join again, the initial text they are met with will be a &quot;welcome back&quot; message instead of the auto reply.
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnestingExample3&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nestingExamplecollapse3&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nestingExamplecollapse3&quot;&gt;
+    What Happens When I Run Out of Messages?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nestingExamplecollapse3&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnestingExample3&quot; data-bs-parent=&quot;#accordionnesting&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    When you run out of messages, you will not be able to send any outbound campaigns. This would include any scheduled messages, drip campaigns, and birthday messages. However, we will continue to deliver your auto-reply messages to allow your subscriber list to continue to grow.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+        </b-row>
+        <!--end row-->
+
+        <b-row>
+            <b-col xl="12">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Accordions Fill Colored</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">Use <code>accordion-fill-</code> class with modifier class to the color
+                            accordion.</p>
+                        <b-row>
+                            <b-col xxl="6">
+                                <div class="accordion custom-accordionwithicon accordion-fill-success" id="accordionFill">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="accordionFillExample1">
+                                            <b-button variant="white" class="accordion-button" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#accor_fill1" aria-expanded="true"
+                                                aria-controls="accor_fill1">
+                                                What are webhooks?
+                                            </b-button>
+                                        </h2>
+                                        <div id="accor_fill1" class="accordion-collapse collapse show"
+                                            aria-labelledby="accordionFillExample1" data-bs-parent="#accordionFill">
+                                            <div class="accordion-body">
+                                                Webhooks allow you to gather real time data on key interactions that happen
+                                                with your Slick Text account. Simply provide us with a url where you'd like
+                                                the data to be sent, choose which events you'd like to be informed of, and
+                                                click save.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="accordionFillExample2">
+                                            <b-button variant="white" class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#accor_fill2"
+                                                aria-expanded="false" aria-controls="accor_fill2">
+                                                Where can I find my Textword ID?
+                                            </b-button>
+                                        </h2>
+                                        <div id="accor_fill2" class="accordion-collapse collapse"
+                                            aria-labelledby="accordionFillExample2" data-bs-parent="#accordionFill">
+                                            <div class="accordion-body">
+                                                Head over to the Textwords page. Click options on the right hand side, and
+                                                then click Settings. This will redirect you to your Textword Setting page.
+                                                Now, go check your url, and the textword ID will be the number after
+                                                "word=". Too much or too little spacing, as in the example below.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="accordionFillExample3">
+                                            <b-button variant="white" class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#accor_fill3"
+                                                aria-expanded="false" aria-controls="accor_fill3">
+                                                Where is your API documentation?
+                                            </b-button>
+                                        </h2>
+                                        <div id="accor_fill3" class="accordion-collapse collapse"
+                                            aria-labelledby="accordionFillExample3" data-bs-parent="#accordionFill">
+                                            <div class="accordion-body">
+                                                You always want to make sure that your fonts work well together and try to
+                                                limit the number of fonts you use to three or less. Experiment and play
+                                                around with the fonts that you already have in the software you’re working
+                                                with reputable font websites.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </b-col>
+                            <!--end col-->
+                            <b-col xxl="6">
+                                <div class="accordion custom-accordionwithicon accordion-flush accordion-fill-secondary"
+                                    id="accordionFill2">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="accordionFill2Example1">
+                                            <b-button variant="white" class="accordion-button" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#accor_fill21"
+                                                aria-expanded="true" aria-controls="accor_fill21">
+                                                How Does Age Verification Work?
+                                            </b-button>
+                                        </h2>
+                                        <div id="accor_fill21" class="accordion-collapse collapse show"
+                                            aria-labelledby="accordionFill2Example1" data-bs-parent="#accordionFill2">
+                                            <div class="accordion-body">
+                                                Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin
+                                                coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next
+                                                level wes anderson artisan four loko farm-to-table craft beer twee. commodo
+                                                enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="accordionFill2Example2">
+                                            <b-button variant="white" class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#accor_fill22"
+                                                aria-expanded="false" aria-controls="accor_fill22">
+                                                What Kind of List Growth Should I Expect?
+                                            </b-button>
+                                        </h2>
+                                        <div id="accor_fill22" class="accordion-collapse collapse"
+                                            aria-labelledby="accordionFill2Example2" data-bs-parent="#accordionFill2">
+                                            <div class="accordion-body">
+                                                Consistency is the one thing that can take all of the different elements in
+                                                your design, and tie them all together and make them work. In an awareness
+                                                campaign, it is vital for people to begin put 2 and 2 together and begin to
+                                                recognize your cause. Consistency piques people’s interest.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="accordionFill2Example3">
+                                            <b-button variant="white" class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#accor_fill23"
+                                                aria-expanded="false" aria-controls="accor_fill23">
+                                                How Do I Delete a Contact From My List?
+                                            </b-button>
+                                        </h2>
+                                        <div id="accor_fill23" class="accordion-collapse collapse"
+                                            aria-labelledby="accordionFill2Example3" data-bs-parent="#accordionFill2">
+                                            <div class="accordion-body">
+                                                Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum
+                                                primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui
+                                                quis mi consectetuer lacinia. Nam pretium turpis et arcu arcu tortor,
+                                                suscipit eget, imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </b-col>
+                            <!--end col-->
+                        </b-row>
+                        <!--end row-->
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup" style="height: 310px;"><code>&lt;!-- Accordions Fill Colored --&gt;
+&lt;div class=&quot;accordion custom-accordionwithicon accordion-fill-success&quot; id=&quot;accordionFill&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionFillExample1&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_fill1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_fill1&quot;&gt;
+    What are webhooks?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_fill1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionFillExample1&quot; data-bs-parent=&quot;#accordionFill&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Webhooks allow you to gather real time data on key interactions that happen with your Slick Text account. Simply provide us with a url where you'd like the data to be sent, choose which events you'd like to be informed of, and click save.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionFillExample2&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_fill2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_fill2&quot;&gt;
+    Where can I find my Textword ID?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_fill2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionFillExample2&quot; data-bs-parent=&quot;#accordionFill&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Head over to the Textwords page. Click options on the right hand side, and then click Settings. This will redirect you to your Textword Setting page. Now, go check your url, and the textword ID will be the number after &quot;word=&quot;. Too much or too little spacing, as in the example below.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionFillExample3&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_fill3&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_fill3&quot;&gt;
+    Where is your API documentation?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_fill3&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionFillExample3&quot; data-bs-parent=&quot;#accordionFill&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    You always want to make sure that your fonts work well together and try to limit the number of fonts you use to three or less. Experiment and play around with the fonts that you already have in the software you&rsquo;re working with reputable font websites.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;div class=&quot;accordion custom-accordionwithicon accordion-flush accordion-fill-secondary&quot; id=&quot;accordionFill2&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionFill2Example1&quot;&gt;
+&lt;button class=&quot;accordion-button&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_fill21&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_fill21&quot;&gt;
+    How Does Age Verification Work?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_fill21&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionFill2Example1&quot; data-bs-parent=&quot;#accordionFill2&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionFill2Example2&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_fill22&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_fill22&quot;&gt;
+    What Kind of List Growth Should I Expect?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_fill22&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionFill2Example2&quot; data-bs-parent=&quot;#accordionFill2&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Consistency is the one thing that can take all of the different elements in your design, and tie them all together and make them work. In an awareness campaign, it is vital for people to begin put 2 and 2 together and begin to recognize your cause. Consistency piques people&rsquo;s interest.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionFill2Example3&quot;&gt;
+&lt;button class=&quot;accordion-button collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_fill23&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_fill23&quot;&gt;
+    How Do I Delete a Contact From My List?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_fill23&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionFill2Example3&quot; data-bs-parent=&quot;#accordionFill2&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+    Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis aliquam ultrices mauris.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+        </b-row>
+        <!--end row-->
+
+        <b-row>
+            <b-col xxl="6">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Collapse Example</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">
+                            You can use a link with the <code>href</code> attribute, or a button with the
+                            <code>data-bs-target</code> attribute. In both cases, the <code>data-bs-toggle="collapse"</code>
+                            is required.
+                        </p>
+                        <div class="hstack gap-2 flex-wrap mb-3">
+                            <b-button variant="primary" @click="collapseState = !collapseState">Link with href</b-button>
+                            <b-link href="javascript:void(0)" class="btn btn-primary" @click="collapseState = !collapseState">Button with target</b-link>
+                        </div>
+                        <div>
+                            <b-collapse id="collapse-2" v-model="collapseState">
+                                <b-card no-body class="mb-0">
+                                    <b-card-body>
+                                        When designing, the goal is to draw someone’s attention and portray to them what you’re
+                                        trying to say. You can make a big statement by using little tricks, like this one. Use
+                                        contrasting fonts. you can use a bold sanserif font with a cursive.
+                                    </b-card-body>
+                                </b-card>
+                            </b-collapse>
+                        </div>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup">
+<code>&lt;!-- Collapse Example --&gt;
+&lt;b-button variant="primary" @click="collapseState = !collapseState"&gt;Button with model&lt;/b-button&gt;
+&lt;b-collapse id="collapse-2" v-model="collapseState"&gt;
+  &lt;b-card no-body class="mb-0"&gt;
+    &lt;b-card-body&gt;
+      When designing, the goal is to draw someone’s attention and portray to them what you’re trying to say. You can make a big statement by using little tricks, like this one. Use contrasting fonts. you can use a bold sanserif font with a cursive.
+    &lt;/b-card-body&gt;
+  &lt;/b-card&gt;
+&lt;/b-collapse&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+            <!--end col-->
+            <b-col xxl="6">
+                <b-card no-body>
+                    <b-card-header>
+                        <b-card-title class="mb-0">Collapse with Icon</b-card-title>
+                    </b-card-header><!-- end card header -->
+                    <b-card-body>
+                        <p class="text-muted">
+                            Here is the example of collapse in which the icon is wrapped within the button collapse toggle.
+                        </p>
+                        <div class="hstack gap-3 mb-3">
+                            <b-link class="link-success" href="javascript:void(0)" @click="iconCol = !iconCol"><i class="ri-arrow-down-circle-line fs-lg"></i></b-link>
+                            <b-button variant="light" href="javascript:void(0)" @click="iconCol = !iconCol"><i class="ri-filter-2-line"></i></b-button>
+                        </div>
+                        <div>
+                            <b-collapse id="collapse-2" v-model="iconCol">
+                                <b-card no-body class="mb-0">
+                                    <b-card-body>
+                                        When designing, the goal is to draw someone’s attention and portray to them what you’re
+                                        trying to say. You can make a big statement by using little tricks, like this one. Use
+                                        contrasting fonts. you can use a bold sanserif font with a cursive.
+                                    </b-card-body>
+                                </b-card>
+                            </b-collapse>
+                        </div>
+                    </b-card-body><!-- end card-body -->
+                    <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                        <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                    </b-card-body>
+                    <b-card-body>
+                        <pre class="language-markup">
+<code>&lt;!-- Collapse with Icon --&gt;
+&lt;b-button variant="primary" @click="collapseState = !collapseState"&gt;&lt;i class="ri-arrow-down-circle-line fs-lg"&lt;&gt;/i&lt;/b-button&gt;
+&lt;b-collapse id="collapse-2" v-model="collapseState"&gt;
+  &lt;b-card no-body class="mb-0"&gt;
+    &lt;b-card-body&gt;
+      When designing, the goal is to draw someone’s attention and portray to them what you’re trying to say. You can make a big statement by using little tricks, like this one. Use contrasting fonts. you can use a bold sanserif font with a cursive.
+    &lt;/b-card-body&gt;
+  &lt;/b-card&gt;
+&lt;/b-collapse&gt;</code></pre>
+                    </b-card-body>
+                </b-card><!-- end card -->
+            </b-col>
+        </b-row>
+        <!--end row-->
+
+    <b-row>
+        <b-col lg="12">
+            <b-card no-body>
+                <b-card-header>
+                    <b-card-title class="mb-0">Multiple Targets Collapse</b-card-title>
+                </b-card-header><!-- end card header -->
+                <b-card-body>
+                    <p class="text-muted">
+                        A <code>&lt;button&gt;</code> or <code>&lt;b-link&gt;</code> can show and hide multiple elements by
+                        referencing them with a selector in its href or data-bs-target attribute. Multiple
+                        <code>&lt;button&gt;</code> or <code>&lt;b-link&gt;</code> can
+                        show and hide an element if they each reference it with their href or data-bs-target attribute.
+                    </p>
+                    <div class="hstack gap-2 flex-wrap mb-3">
+                        <b-link href="javascript:void(0)" class="btn btn-primary" @click="multiCol1 = !multiCol1">Toggle First Element</b-link>
+                        <b-button variant="primary" @click="multiCol2 = !multiCol2">Toggle Second Element</b-button>
+                        <b-button variant="primary" @click="multiCollapse">Toggle Both Elements</b-button>
+                    </div>
+                    <b-row>
+                        <div class="col">
+                            <b-collapse id="collapse-1" v-model="multiCol1">
+                                <b-card no-body class="mb-0">
+                                    <b-card-body>
+                                        Some placeholder content for the first collapse component of this multi-collapse
+                                        example. This panel is hidden by default but revealed when the user activates the
+                                        relevant trigger.
+                                    </b-card-body>
+                                </b-card>
+                            </b-collapse>
+                        </div>
+                        <div class="col">
+                            <b-collapse id="collapse-2" v-model="multiCol2">
+                                <b-card no-body class="mb-0">
+                                    <b-card-body>
+                                        Some placeholder content for the first collapse component of this multi-collapse
+                                        example. This panel is hidden by default but revealed when the user activates the
+                                        relevant trigger.
+                                    </b-card-body>
+                                </b-card>
+                            </b-collapse>
+                        </div>
+                    </b-row>
+                </b-card-body><!-- end card-body -->
+                <b-card-body class="bg-light border-bottom border-top bg-opacity-25">
+                    <h5 class="fs-xs text-muted mb-0">HTML Preview</h5>
+                </b-card-body>
+                <b-card-body>
+                    <pre class="language-markup">
+<code>&lt;!-- Multiple Targets Example --&gt;
+&lt;b-button variant="primary" @click="collapseState = !collapseState"&gt; Multi Collapse &lt;/b-button&gt;
+&lt;b-collapse id="collapse-2" class="multi-collapse" v-model="collapseState"&gt;
+  &lt;b-card no-body class="mb-0"&gt;
+    &lt;b-card-body&gt;
+      When designing, the goal is to draw someone’s attention and portray to them what you’re trying to say. You can make a big statement by using little tricks, like this one. Use contrasting fonts. you can use a bold sanserif font with a cursive.
+    &lt;/b-card-body&gt;
+  &lt;/b-card&gt;
+&lt;/b-collapse&gt;
+</code></pre>
+                </b-card-body>
+            </b-card><!-- end card -->
+        </b-col>
+        <!--end col-->
+    </b-row>
+    <!--end row-->
+</Layout>
+</template>
