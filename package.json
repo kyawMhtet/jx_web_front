@@ -49,7 +49,7 @@
         "node-sass": "8.0.0",
         "prismjs": "^1.29.0",
         "sass-loader": "^13.2.2",
-        "simplebar": "^6.2.5",
+        "simplebar": "^5.3.8",
         "simplebar-vue": "^2.3.3",
         "simplebar-vue3": "^0.2.0",
         "sweetalert2": "^11.7.5",

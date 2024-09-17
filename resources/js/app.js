@@ -11,6 +11,7 @@ import BootstrapVueNext from 'bootstrap-vue-next'
 import i18n from './i18n'
 import layout from "./mixins/layouts.mixin";
 import VueApexCharts from "vue3-apexcharts";
+import store from './store';
 import { vMaska } from "maska";
 
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
@@ -26,6 +27,7 @@ import 'bootstrap/dist/js/bootstrap'
 const app = createApp({});
 
 app.component("example-component", App);
+app.use(store);
 app.use(routes);
 app.use(VueApexCharts);
 app.use(i18n);

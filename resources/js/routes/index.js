@@ -82,7 +82,7 @@ const routes = [
     },
 
     // Ecommerce
-    
+
     {
         path: "/ecommerce/products",
         name: "products",
@@ -96,7 +96,7 @@ const routes = [
         component: () => import("../views/ecommerce/products-grid.vue"),
     },
     {
-        path: "/ecommerce/product-details",
+        path: "/ecommerce/product-details/:id",
         name: "product-details",
         meta: { title: "Product Overview", authRequired: true },
         component: () => import("../views/ecommerce/product-details.vue"),
@@ -160,7 +160,7 @@ const routes = [
 
     // Learning
 
-    // Courses 
+    // Courses
     {
         path: "/learning/list",
         name: "courses-list-view",
@@ -924,13 +924,14 @@ router.beforeEach(async (routeTo, routeFrom, next) => {
     }
 
     const authRequired = routeTo.matched.some((route) => route.meta.authRequire);
-    if (!authRequired) return next();
+    return next();
+    // if (!authRequired) return next();
 
-    if (sessionStorage.getItem('user')) {
-        next();
-    } else {
-        next({ name: 'login', query: { redirectFrom: routeTo.fullPath } });
-    }
+    // if (sessionStorage.getItem('user')) {
+    //     next();
+    // } else {
+    //     next({ name: 'login', query: { redirectFrom: routeTo.fullPath } });
+    // }
 
 });
 
