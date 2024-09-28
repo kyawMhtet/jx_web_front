@@ -339,7 +339,7 @@ export default {
       this.$parent.changeMode(mode);
       if (mode == "dark") {
         return this.$parent.changeLayout({ mode: mode, topbar: "dark" });
-      } else if (mode == "light") { 
+      } else if (mode == "light") {
         return this.$parent.changeLayout({ mode: mode, topbar: "light" });
       } else {
         return this.$parent.changeLayout({ mode: mode, topbar: "light" });
@@ -391,7 +391,7 @@ export default {
       document.getElementById("count-table").style.display = "block";
     }
 
-    // count notifications 
+    // count notifications
     Array.from(document.querySelectorAll(".notification-check input")).forEach(function (element) {
       element.addEventListener("change", function (el) {
         el.target.closest(".notification-item").classList.toggle("active");
@@ -691,6 +691,9 @@ export default {
               <span
                 class="position-absolute topbar-badge cartitem-badge fs-3xs translate-middle badge rounded-pill bg-info">5</span>
             </b-button>
+
+
+            <!-- My cart -->
             <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end p-0 product-list"
               aria-labelledby="page-header-cart-dropdown">
               <div class="p-3 border-bottom">

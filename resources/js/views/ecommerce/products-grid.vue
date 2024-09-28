@@ -1,14 +1,16 @@
 <script>
 import Layout from "../../layouts/main.vue";
 import PageHeader from "../../components/page-header.vue";
-
+import NotFoundText from '../../components/NotFoundText.vue';
 import { productsGrid } from "../../common/data";
 import Multiselect from "@vueform/multiselect";
-
 import Slider from "@vueform/slider";
 import "@vueform/slider/themes/default.css";
 import axios from "axios";
 import useFetch from "../../composables/useFetch";
+import Spinner from "../../components/spinner.vue";
+import Navbar from "../../components/nav-bar.vue";
+import megaShop from "../../axios";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -53,13 +55,16 @@ export default {
             maxCost: 1000,
             // Slider
             value: [0, 1000],
+            searchTerm: "",
+            loader: false,
         };
     },
     computed: {
-
-        ...mapState('products', {
-            products: state => state.products,
-            product: state => state.product
+        ...mapState("products", {
+            products: (state) => state.products,
+            product: (state) => state.product,
+            categories: (state) => state.categories,
+            total: (state) => state.total,
         }),
 
         displayedPosts() {
@@ -83,6 +88,13 @@ export default {
             }
         },
     },
+
+    watch: {
+        searchTerm(newValue) {
+            this.searchProducts();
+        },
+    },
+
     // watch: {
     //     products() {
     //         this.setPages();
@@ -101,19 +113,31 @@ export default {
     //     this.setPages();
     // },
     methods: {
-        ...mapActions('products', ['fetchProducts']),
+        ...mapActions("products", ["fetchProducts"]),
+
+        async searchProducts() {
+        this.loader = true;
+
+            try {
+                const url = `/shop/products?sid=1&search=${this.searchTerm}`;
+               await this.fetchProducts(url);
+            } catch (error) {
+                console.log("error search products");
+            } finally {
+                this.loader = false;
+            }
+        },
 
         prevPage() {
-            if(this.product.prev_page_url) {
-                console.log('hit');
+            if (this.product.prev_page_url) {
+                console.log("hit");
                 this.fetchProducts(this.product.prev_page_url);
             }
         },
 
-
         nextPage() {
-            if(this.product.next_page_url) {
-                console.log('hit');
+            if (this.product.next_page_url) {
+                console.log("hit");
                 this.fetchProducts(this.product.next_page_url);
             }
         },
@@ -126,20 +150,6 @@ export default {
         resetFilter() {
             this.products = productsGrid;
         },
-        // setPages() {
-        //     let numberOfPages = Math.ceil(this.products.length / this.perPage);
-        //     this.pages = [];
-        //     for (let index = 1; index <= numberOfPages; index++) {
-        //         this.pages.push(index);
-        //     }
-        // },
-        // paginate(products) {
-        //     let page = this.page;
-        //     let perPage = this.perPage;
-        //     let from = page * perPage - perPage;
-        //     let to = page * perPage;
-        //     return products.slice(from, to);
-        // },
         deleteModalToggle(data) {
             this.removeModal = true;
             this.event.id = data.id;
@@ -154,21 +164,6 @@ export default {
             }
         },
 
-        // async fetchProducts(url = "http://localhost:8000/api/shop/products") {
-        //     try {
-        //         const res = await axios.get(url);
-        //         console.log(res.data.subItems);
-        //         this.products = res.data.subItems.data;
-        //         this.current_page = res.data.subItems.current_page;
-        //         this.prev_url = res.data.subItems.prev_page_url;
-        //         this.next_url = res.data.subItems.next_page_url;
-        //         // console.log(this.currentPage);
-        //         this.scrollToTop();
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // },
-
         scrollToTop() {
             window.scrollTo({
                 top: 0,
@@ -177,30 +172,36 @@ export default {
         },
     },
 
-    mounted() {
-    // Fetch products when the component is created
-    // let url =
-        this.fetchProducts(`http://localhost:8000/api/shop/products?sid=1&${this.current_page}`).then(() => {
-            // console.log(this.products);
-            console.log(this.product);
+    async mounted() {
+        this.loader = true;
+        try {
+            await this.fetchProducts(
+                `/shop/products?sid=1&page=${this.current_page}`
+            );
+            console.log(this.products);
             this.scrollToTop();
-        });
-  },
-
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        } finally {
+            this.loader = false;
+        }
+    },
 
     components: {
         Layout,
+        Navbar,
         PageHeader,
         Multiselect,
+        Spinner,
         Slider,
     },
 };
 </script>
 
 <template>
-    <!-- <layout> -->
-
-    <div class="container-fluid py-3">
+    <layout>
+        <!-- <Navbar /> -->
+    <div class="container py-3">
         <!-- <pre>
                 {{ product.subItems.next_page_url }}
 
@@ -230,7 +231,8 @@ export default {
                             <input
                                 type="text"
                                 class="form-control"
-                                v-model="searchQuery"
+                                v-model="searchTerm"
+                                @input="searchProducts"
                                 id="searchResultList"
                                 autocomplete="off"
                                 placeholder="Search products, category etc..."
@@ -268,7 +270,10 @@ export default {
                                         <ul
                                             class="list-unstyled mb-0 filter-list"
                                         >
-                                            <li>
+                                            <li
+                                                v-for="category in categories"
+                                                :key="category.id"
+                                            >
                                                 <b-link
                                                     href="#"
                                                     class="d-flex py-1 align-items-center"
@@ -280,193 +285,9 @@ export default {
                                                         <h5
                                                             class="fs-sm mb-0 listname"
                                                         >
-                                                            Appliances
-                                                        </h5>
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="
-                                                        filterCat(
-                                                            'Automotive Accessories'
-                                                        )
-                                                    "
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Automotive
-                                                            Accessories
-                                                        </h5>
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="
-                                                        filterCat('Electronics')
-                                                    "
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Electronics
-                                                        </h5>
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="
-                                                        filterCat('Fashion')
-                                                    "
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Fashion
-                                                        </h5>
-                                                    </div>
-                                                    <div
-                                                        class="flex-shrink-0 ms-2"
-                                                    >
-                                                        <span
-                                                            class="badge bg-light text-muted"
-                                                            >7</span
-                                                        >
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="
-                                                        filterCat('Furniture')
-                                                    "
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Furniture
-                                                        </h5>
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="
-                                                        filterCat('Grocery')
-                                                    "
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Grocery
-                                                        </h5>
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="
-                                                        filterCat('Headphones')
-                                                    "
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Headphones
-                                                        </h5>
-                                                    </div>
-                                                    <div
-                                                        class="flex-shrink-0 ms-2"
-                                                    >
-                                                        <span
-                                                            class="badge bg-light text-muted"
-                                                            >2</span
-                                                        >
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="
-                                                        filterCat('Luggage')
-                                                    "
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Luggage
-                                                        </h5>
-                                                    </div>
-                                                    <div
-                                                        class="flex-shrink-0 ms-2"
-                                                    >
-                                                        <span
-                                                            class="badge bg-light text-muted"
-                                                            >1</span
-                                                        >
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="filterCat('Sports')"
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Sports
-                                                        </h5>
-                                                    </div>
-                                                    <div
-                                                        class="flex-shrink-0 ms-2"
-                                                    >
-                                                        <span
-                                                            class="badge bg-light text-muted"
-                                                            >1</span
-                                                        >
-                                                    </div>
-                                                </b-link>
-                                            </li>
-                                            <li>
-                                                <b-link
-                                                    href="#"
-                                                    class="d-flex py-1 align-items-center"
-                                                    @click="
-                                                        filterCat('Watches')
-                                                    "
-                                                >
-                                                    <div class="flex-grow-1">
-                                                        <h5
-                                                            class="fs-sm mb-0 listname"
-                                                        >
-                                                            Watches
+                                                            {{
+                                                                category.category_name
+                                                            }}
                                                         </h5>
                                                     </div>
                                                 </b-link>
@@ -842,160 +663,150 @@ export default {
                             Products
                             <span
                                 class="badge bg-secondary-subtle text-secondary align-middle ms-1"
-                                >254</span
+                                >{{ total }}</span
                             >
                         </h5>
                     </b-col>
-                    <b-col xxl="2" lg="4" sm="6">
+                    <!-- <b-col xxl="2" lg="4" sm="6">
                         <Multiselect
                             placeholder="Select Filter"
                             v-model="filterSelectValue"
                             :options="filterOptions"
                         />
-                    </b-col>
-                    <b-col lg="auto">
-                        <router-link
-                            to="/ecommerce/add-product"
-                            class="btn btn-primary"
-                            ><i
-                                class="bi bi-plus-circle align-baseline me-1"
-                            ></i>
-                            Add Product
-                        </router-link>
-                    </b-col>
+                    </b-col> -->
                 </b-row>
 
-                <b-row id="product-grid">
-                    <!-- <b-col xxl="3" lg="4" md="6" v-for="(data, index) of resultQuery" :key="index">
-
-                        </b-col> -->
-                    <b-col
-                        xxl="3"
-                        lg="4"
-                        md="6"
-                        v-for="(product, index) in products"
-                        :key="index"
-                    >
-                        <b-card no-body class="ribbon-box ribbon-fill">
-                            <!-- <div class="ribbon ribbon-danger" v-if="parseFloat(data.discount) > 1">Sale</div> -->
-                            <b-card-body class="p-4 m-4">
-                                <b-button
-                                    type="button"
-                                    size="sm"
-                                    variant="subtle-danger"
-                                    class="btn-icon position-absolute top-0 end-0 m-3"
-                                    @click="deleteModalToggle(product?.id)"
-                                >
-                                    <i class="ph-trash"></i>
-                                </b-button>
-                                <img
-                                    :src="product?.image_url"
-                                    :alt="product.img_alt"
-                                    class="img-fluid"
-                                />
-                            </b-card-body>
-                            <b-card-body class="pt-0">
-                                <span
-                                    class="badge bg-warning-subtle text-warning float-end"
-                                >
-                                    <i
-                                        class="bi bi-star-fill align-baseline me-1"
-                                    ></i>
-                                    <!-- <span class="rate">{{ data.ratings }}</span> -->
-                                </span>
-                                <h5 class="fs-lg mb-3">
-                                    {{ product?.price }} Ks
-                                </h5>
-                                <router-link to="/ecommerce/product-details">
-                                    <h6 class="fs-md text-truncate">
-                                        {{ product?.sub_item_name }}
-                                    </h6>
-                                </router-link>
-                                <b-link
-                                    href="#!"
-                                    class="text-decoration-underline text-muted mb-0"
-                                    >{{ product.category }}</b-link
-                                >
-                                <div class="mt-3 hstack gap-2">
-                                    <router-link
-                                        to="/ecommerce/add-product"
-                                        class="btn btn-primary w-100"
-                                    >
-                                        <i
-                                            class="ph-pencil me-1 align-middle"
-                                        ></i>
-                                        Edit
-                                    </router-link>
-                                    <router-link
-                                        :to="{
-                                            name: 'product-details',
-                                            params: { id: product?.id },
-                                        }"
-                                        class="btn btn-secondary w-100"
-                                    >
-                                        <i class="ph-eye me-1 align-middle"></i
-                                        >Overview
-                                    </router-link>
-                                </div>
-                            </b-card-body>
-                        </b-card>
-                    </b-col>
-                </b-row>
-                <!-- Display products -->
-                <!-- Pagination Controls -->
-                <div>
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <!-- Previous Button -->
-                            <li
-                                class="page-item"
-                                :class="{ disabled: !product.prev_page_url }"
+                <Spinner v-if="loader" />
+                <div v-else>
+                    <div v-if="products.length">
+                        <b-row id="product-grid"  >
+                            <b-col
+                                xxl="3"
+                                lg="4"
+                                md="6"
+                                v-for="(product, index) in products"
+                                :key="index"
                             >
-                                <button
-                                    class="page-link btn"
-                                    @click="prevPage"
-                                    :disabled="currentPage === 1"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        height="24px"
-                                        viewBox="0 -960 960 960"
-                                        width="24px"
-                                        fill="#5f6368"
-                                    >
-                                        <path
-                                            d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
 
-                            <button
-                                class="btn border-0 outline-none bg-primary text-white"
-                            >
-                                {{ product.current_page }}
-                            </button>
-                            <!-- Next Button -->
-                            <li class="page-item">
-                                <button
-                                    class="page-link btn"
-                                    @click="nextPage"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        height="24px"
-                                        viewBox="0 -960 960 960"
-                                        width="24px"
-                                        fill="#5f6368"
-                                    >
-                                        <path
-                                            d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"
+                                <b-card no-body class="ribbon-box ribbon-fill">
+                                    <b-card-body class="p-4 m-4">
+                                        <img
+                                            v-if="product.image_url"
+                                            :src="product.image_url"
+                                            class="img-fluid"
                                         />
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </nav>
+
+                                        <img v-else src="https://via.placeholder.com/150x175" alt="image">
+                                    </b-card-body>
+                                    <b-card-body class="pt-0">
+                                        <span
+                                            class="badge bg-warning-subtle text-warning float-end"
+                                        >
+                                            <i
+                                                class="bi bi-star-fill align-baseline me-1"
+                                            ></i>
+                                            <!-- <span class="rate">{{ data.ratings }}</span> -->
+                                        </span>
+                                        <h5 class="fs-lg mb-3">
+                                            {{ product?.price }} Ks
+                                        </h5>
+                                        <router-link to="/ecommerce/product-details">
+                                            <h6 class="fs-md text-truncate">
+                                                {{ product?.sub_item_name }}
+                                            </h6>
+                                        </router-link>
+                                        <b-link
+                                            href="#!"
+                                            class="text-decoration-underline text-muted mb-0"
+                                            >{{ product?.category }}</b-link
+                                        >
+                                        <div class="mt-3 hstack gap-2">
+                                            <router-link
+                                            :to="{
+                                                name: 'product-details',
+                                                params: { id: product?.id },
+                                            }"
+                                            class="btn btn-secondary w-100"
+                                        >
+                                            <i class="ph-eye me-1 align-middle"></i
+                                            >Overview
+                                        </router-link>
+                                            <button
+                                                class="btn btn-primary py-2 w-25"
+                                            >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="" height="20px" viewBox="0 -960 960 960" width="20px" fill="#eeeeee"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
+                                            </button>
+
+                                        </div>
+                                    </b-card-body>
+                                </b-card>
+                            </b-col>
+                        </b-row>
+                        <!-- Display products -->
+                        <!-- Pagination Controls -->
+                        <div>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <!-- Previous Button -->
+                                    <li
+                                        class="page-item"
+                                        :class="{ disabled: !product.prev_page_url }"
+                                    >
+                                        <button
+                                            class="page-link btn"
+                                            @click="prevPage"
+                                            :disabled="product.prev_page_url === null"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                fill="#5f6368"
+                                            >
+                                                <path
+                                                    d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </li>
+
+                                    <button
+                                        class="btn border-0 outline-none bg-primary text-white"
+                                    >
+                                        {{ product.current_page }}
+                                    </button>
+                                    <!-- Next Button -->
+                                    <li class="page-item"
+                                    :class="{ disabled: !product.prev_page_url }"
+
+                                    >
+                                        <button class="page-link btn"
+                                         @click="nextPage"
+                                         :disabled="product.next_page_url === null"
+
+                                         >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                fill="#5f6368"
+                                            >
+                                                <path
+                                                    d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div v-else class="d-flex justify-content-center">
+                        <h3>No result found!</h3>
+                    </div>
                 </div>
 
                 <!-- <b-row class="mb-4 align-items-center" id="pagination-element" v-if="resultQuery.length >= 1">
@@ -1083,5 +894,5 @@ export default {
             </div>
         </b-modal>
     </div>
-    <!-- </layout> -->
+    </layout>
 </template>

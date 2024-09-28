@@ -1,10 +1,13 @@
-import axios from "axios";
+import megaShop from "../../axios";
 
 export default {
-    async fetchProducts({ commit }, url) {
-        // const res = await axios.get('http://localhost:8000/api/shop/products');
-        const res = await axios.get(url);
-        // console.log(res.data);
-        commit('setProducts', res.data);
+  async fetchProducts({ commit }, url) {
+    try {
+      const res = await megaShop.get(url);
+      commit('setProducts', res.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      throw error;
     }
+  }
 }
